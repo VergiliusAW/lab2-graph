@@ -1,0 +1,48 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        Helvetica, Arial, sans-serif;
+    margin: auto;
+    max-width: 38rem;
+    padding: 2rem;
+}
+
+#drag-file {
+    text-align: center;
+    width: 375px;
+    height: 375px;
+    border: 3px dashed #eaeaea;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+#hc {
+    display: none;
+}
+
+#cpanel {
+  margin: 20px 2.5px;
+  display: flex;
+  flex-direction: row;
+}
+
+#input {
+    margin-bottom: 20px;
+}
+
+.tab {
+    text-align: center;
+    font-size: 11px;
+  width: 110px;
+  height: 30px;
+  margin: 5px;
+  border: 2px solid grey;
+}
+
+.tab:hover {
+    cursor: pointer;
+    border: 2px solid hotpink;
+}
+
+.selected {
+  background-color: #eaeaea;
+}

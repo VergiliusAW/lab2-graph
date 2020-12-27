@@ -1,0 +1,65 @@
+{
+    "name": "lab2-graph",
+    "productName": "lab2-graph",
+    "version": "1.0.0",
+    "description": "My Electron application description",
+    "main": "src/index.js",
+    "scripts": {
+        "start": "electron-forge start",
+        "package": "electron-forge package",
+        "make": "electron-forge make",
+        "publish": "electron-forge publish",
+        "lint": "echo \"No linting configured\""
+    },
+    "keywords": [],
+    "author": {
+        "name": "Ashcheulov Ubuntu",
+        "email": "ashcheulov.mr@gmail.com"
+    },
+    "license": "MIT",
+    "config": {
+        "forge": {
+            "packagerConfig": {},
+            "makers": [
+                {
+                    "name": "@electron-forge/maker-squirrel",
+                    "config": {
+                        "name": "lab2_graph"
+                    }
+                },
+                {
+                    "name": "@electron-forge/maker-zip",
+                    "platforms": [
+                        "darwin"
+                    ]
+                },
+                {
+                    "name": "@electron-forge/maker-deb",
+                    "config": {}
+                },
+                {
+                    "name": "@electron-forge/maker-rpm",
+                    "config": {}
+                }
+            ]
+        }
+    },
+    "dependencies": {
+        "electron-reloader": "^1.1.0",
+        "electron-squirrel-startup": "^1.0.0",
+        "prettier": "^2.2.1"
+    },
+    "devDependencies": {
+        "@electron-forge/cli": "^6.0.0-beta.54",
+        "@electron-forge/maker-deb": "^6.0.0-beta.54",
+        "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+        "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+        "@electron-forge/maker-zip": "^6.0.0-beta.54",
+        "electron": "11.1.1"
+    },
+    "prettier": {
+        "trailingComma": "es5",
+        "tabWidth": 4,
+        "semi": true
+    }
+}
