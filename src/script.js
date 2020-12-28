@@ -244,57 +244,6 @@ const HUE_MAX = 360;
 const SV_MAX = 100;
 
 /**
- * Конвертация RGB в HSV
- * @param r
- * @param g
- * @param b
- * @returns {{s: number, v: number, h: number}}
- * @constructor
- */
-// function RGBtoHSV(r, g, b) {
-//     const RGB_MAX = 255;
-//     const HUE_MAX = 360;
-//     const SV_MAX = 100;
-//     if (typeof r === "object") {
-//         const args = r;
-//         r = args.r;
-//         g = args.g;
-//         b = args.b;
-//     }
-//     r = r === RGB_MAX ? 1 : (r % RGB_MAX) / parseFloat(RGB_MAX);
-//     g = g === RGB_MAX ? 1 : (g % RGB_MAX) / parseFloat(RGB_MAX);
-//     b = b === RGB_MAX ? 1 : (b % RGB_MAX) / parseFloat(RGB_MAX);
-//     var max = Math.max(r, g, b);
-//     var min = Math.min(r, g, b);
-//     var h,
-//         s,
-//         v = max;
-//     var d = max - min;
-//     s = max === 0 ? 0 : d / max;
-//     if (max === min) {
-//         h = 0;
-//     } else {
-//         switch (max) {
-//             case r:
-//                 h = (g - b) / d + (g < b ? 6 : 0);
-//                 break;
-//             case g:
-//                 h = (b - r) / d + 2;
-//                 break;
-//             case b:
-//                 h = (r - g) / d + 4;
-//                 break;
-//         }
-//         h /= 6;
-//     }
-//     return {
-//         h: Math.round(h * HUE_MAX),
-//         s: Math.round(s * SV_MAX),
-//         v: Math.round(v * SV_MAX),
-//     };
-// }
-
-/**
  * Конвертация RGB в HSL
  * @param r
  * @param g
@@ -381,6 +330,74 @@ function HSLtoRGB(h, s, l) {
         g: Math.round(g * RGB_MAX),
         b: Math.round(b * RGB_MAX),
     }
+}
+
+/**
+ * Конвертация RGB в HSI
+ * @param {*} R 
+ * @param {*} G 
+ * @param {*} B 
+ */
+function RGBtoHSI(R, G, B) {
+    var r, g, b, h, s, i;
+    r = R / RGB_MAX;
+    g = G / RGB_MAX;
+    b = B / RGB_MAX;
+    i = (r + g + b) / 3;
+    
+    if (R == G && G == B){
+        s = h = 0;
+    }
+    else {
+        w = (r - g + r - b) / Math.sqrt((r - g) * (r - g) + (r - b) * (g - b)) / 2;
+        h = Math.acos(w) * 180 / PI;
+
+        if (b > g)
+            h = 360 - h;
+
+        s = 1 - Math.min(r, g, b) / i;
+    }
+
+    return [h, s, i];
+}
+
+/**
+ * Конвертация HSI в RGB
+ * @param {*} h 
+ * @param {*} s 
+ * @param {*} i 
+ */
+function HSItoRGB(h, s, i) {
+    var r, g, b, z, x;
+    z = (1 - s) /3;
+
+    function x(h) {
+        return (1 + s * cos(h) / cos(60 - h)) / 3;
+    }
+
+    if (h < 0) {
+        return [0, 0, 0];
+    }
+    else if (h <= 120) {
+        b = z;
+        r = x(h);
+        g = 1 - r - b;
+    }
+    else if (h <= 240) {
+        g = x(h - 120);
+        r = z;
+        b = 1 - r - g;
+    }
+    else if (h <= 360) {
+        b = x(h - 240);
+        g = z;
+        r= 1 - g - b;
+    }
+    else {
+        r = g = b = 0;
+    }
+
+    return [Math.round(i * r * 765), Math.round(i * g * 765), Math.round(i * b * 765)];
 }
 
 /**
